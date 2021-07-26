@@ -1,25 +1,28 @@
 package com.example.latihanandorid.satu;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.cardview.widget.CardView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.ImageButton;
 
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-        private RecyclerView rv_Hewan;
-        private ArrayList<Hewan> list = new ArrayList<>();
+
         private String title = "Home";
+    CardView[][] penampung = new CardView[6][6];
+
+    ImageButton btn_bawah, btn_atas, btn_kiri,btn_kanan;
+
+    int x=0;
+    int y=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +30,96 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setActionBarTitle(title);
 
-        rv_Hewan = findViewById(R.id.rv_hewan);
-        rv_Hewan.setHasFixedSize(true);
+        btn_atas = (ImageButton) findViewById(R.id.btnAtas);
+        btn_bawah = (ImageButton) findViewById(R.id.btnBawah);
+        btn_kiri = (ImageButton) findViewById(R.id.btnKiri);
+        btn_kanan =(ImageButton) findViewById(R.id.btnKanan);
 
-        list.addAll(HewanData.getListData());
-        showRecyclerList();
+
+        for (int i = 0 ; i<6;i++){
+            for (int j=0;j<6;j++){
+                String temp = "card"+i+j;
+                penampung[i][j] = findViewById(getResources().getIdentifier(temp,"id",getPackageName()));
+            }
+        }
+
+        //SET PLAYER
+        penampung[0][0].setCardBackgroundColor(Color.BLACK);
+
+        btn_bawah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if((y < 5)&&(y >= 0)){
+                    y=y+1;
+                }
+
+                if(penampung[y][x].getCardBackgroundColor().getDefaultColor() == -16777216){
+
+                    penampung[y][x].setCardBackgroundColor(Color.WHITE);
+                }else{
+                    penampung[y][x].setCardBackgroundColor(Color.BLACK);
+
+                }
+
+            }
+        });
+
+
+        btn_kanan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if((x<5)&&(y>=0)){
+                    x+=1;
+                }
+                if(penampung[y][x].getCardBackgroundColor().getDefaultColor() == -16777216){
+
+                    penampung[y][x].setCardBackgroundColor(Color.WHITE);
+                }else{
+                    penampung[y][x].setCardBackgroundColor(Color.BLACK);
+
+                }
+            }
+        });
+
+        btn_atas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if((y<=5)&&(y>0)){
+                    y-=1;
+                }
+                if(penampung[y][x].getCardBackgroundColor().getDefaultColor() == -16777216){
+
+                    penampung[y][x].setCardBackgroundColor(Color.WHITE);
+                }else{
+                    penampung[y][x].setCardBackgroundColor(Color.BLACK);
+
+                }
+
+            }
+        });
+
+        btn_kiri.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if((x<=5)&&(x>0)){
+                    x-=1;
+                }
+
+                if(penampung[y][x].getCardBackgroundColor().getDefaultColor() == -16777216){
+
+                    penampung[y][x].setCardBackgroundColor(Color.WHITE);
+                }else{
+                    penampung[y][x].setCardBackgroundColor(Color.BLACK);
+
+                }
+            }
+        });
 
     }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -47,11 +133,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void showRecyclerList() {
-        rv_Hewan.setLayoutManager(new GridLayoutManager(this, 5));
-        ListHewanAdapter listHewanAdapter = new ListHewanAdapter(list);
-        rv_Hewan.setAdapter(listHewanAdapter);
-    }
+
 
    public void setMode(int selectedMode){
         switch (selectedMode){
@@ -67,5 +149,6 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(title);
         }
     }
+
 
 }

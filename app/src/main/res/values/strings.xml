@@ -1,16 +1,8 @@
 <resources>
     <string name="app_name">LatihanAndoridSatu</string>
-    <string name="name_hewan">Nama Hewan</string>
-    <string name="content_main">Berikut Daftar Hewan Langkah Yang Berada Di Indonesia</string>
-    <string name="content_rank">Value rank</string>
-    <string name="overview">overview</string>
-    <string name="hewan_overview">Hewan Overview</string>
-    <string name="content_overview">content overview</string>
     <string name="name_me">Ahmad Hambali</string>
     <string name="email_me">Ahmadhambali1997@gmail.com</string>
-    <string name="rank">Indonesia Rank \nWord Rank </string>
-    <string name="favorite">Favorite</string>
-    <string name="share">Share</string>
+
 
 
 </resources>
